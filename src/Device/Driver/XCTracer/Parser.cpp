@@ -22,6 +22,7 @@ Copyright_License {
 */
 
 #include "../XCTracer/Internal.hpp"
+#include "Units/System.hpp"
 #include "NMEA/Checksum.hpp"
 #include "NMEA/InputLine.hpp"
 #include "NMEA/Info.hpp"
@@ -41,6 +42,9 @@ Copyright_License {
  * $GPGGA,081158.400,4837.7021,N,00806.2928,E,2,5,1.57,113.9,M,47.9,M,,*5B
  * $LXWP0,N,,119.9,0.16,,,,,,259,,*64
  * $GPRMC,081158.800,A,4837.7018,N,00806.2923,E,2.34,261.89,110815,,,D*69
+ *
+ * OR in LXWPW mode with additional wind (course in degrees, speed in km/h) in LXWP0 sentence
+ * $LXWP0,N,,119.9,0.16,,,,,,259,180,4.5*64
  */
 
 /**
@@ -86,6 +90,25 @@ ReadCheckedRange(NMEAInputLine &line,double &value_r, double min, double max)
   return true;
 }
 
+
+/* helper to read wind vector */
+static bool
+ReadSpeedVector(NMEAInputLine &line, SpeedVector &value_r)
+{
+  double bearing, speed;
+
+  bool bearing_valid = ReadCheckedRange(line,bearing,0,360);
+  bool speed_valid = ReadCheckedRange(line,speed,0,300);
+
+  if (bearing_valid && speed_valid) {
+    value_r.bearing = Angle::Degrees(bearing);
+    value_r.norm = Units::ToSysUnit(speed, Unit::KILOMETER_PER_HOUR);
+    return true;
+  }
+
+  return false;
+}
+
 /**
  * the parser for the LXWP0 subset sentence that the XC-Tracer can produce
  */
@@ -100,8 +123,8 @@ XCTracerDevice::LXWP0(NMEAInputLine &line, NMEAInfo &info)
    *  3 vario (m/s)
    *  4-8 n.u.
    *  9 course (0..360)
-   * 10 n.u
-   * 11 n.u.
+   * 10 n.u / OR wind degrees (0..360)  if in LXWPW mode
+   * 11 n.u./ OR wind speed (xx.y km.h) if in LXWPW mode
    */
 
   line.Skip(2);
@@ -124,8 +147,13 @@ XCTracerDevice::LXWP0(NMEAInputLine &line, NMEAInfo &info)
     info.track_available.Update(info.clock);
   }
 
+  SpeedVector wind;
+  if (ReadSpeedVector(line, wind))
+    info.ProvideExternalWind(wind);
+
   return true;
 }
+
 
 /**
  * the parser for the XCTRC sentence
