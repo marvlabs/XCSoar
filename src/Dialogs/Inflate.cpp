@@ -25,9 +25,9 @@ Copyright_License {
 
 #include <zlib.h>
 
-#include <assert.h>
+#include <cassert>
 #include <limits.h>
-#include <stdint.h>
+#include <cstdint>
 #include <string.h>
 
 /**

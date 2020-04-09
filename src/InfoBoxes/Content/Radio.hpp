@@ -25,8 +25,19 @@ Copyright_License {
 #define XCSOAR_INFOBOX_CONTENT_RADIO_HPP
 
 #include "InfoBoxes/Content/Base.hpp"
-#include "RadioFrequency.hpp"
 
-void UpdateInfoBoxActiveFrequency(InfoBoxData &data);
-void UpdateInfoBoxStandbyFrequency(InfoBoxData &data);
+class InfoBoxContentActiveRadioFrequency : public InfoBoxContent
+{
+public:
+  virtual const InfoBoxPanel *GetDialogContent() override;
+  virtual void Update(InfoBoxData & data) override;
+};
+
+class InfoBoxContentStandbyRadioFrequency : public InfoBoxContent
+{
+public:
+  virtual const InfoBoxPanel *GetDialogContent() override;
+  virtual void Update(InfoBoxData & data) override;
+};
+
 #endif

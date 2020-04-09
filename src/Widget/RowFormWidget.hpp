@@ -32,8 +32,8 @@ Copyright_License {
 #include "Util/EnumCast.hpp"
 #include "Units/Group.hpp"
 
-#include <assert.h>
-#include <stdint.h>
+#include <cassert>
+#include <cstdint>
 
 struct DialogLook;
 struct StaticEnumChoice;

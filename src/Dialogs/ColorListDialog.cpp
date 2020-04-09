@@ -30,10 +30,10 @@ Copyright_License {
 #include "Look/AirspaceLook.hpp"
 #include "Util/Macros.hpp"
 
-#include <assert.h>
+#include <cassert>
 
 static void
-OnPaintListItem(Canvas &canvas, const PixelRect rc, unsigned i)
+OnPaintListItem(Canvas &canvas, const PixelRect rc, unsigned i) noexcept
 {
   assert(i < ARRAY_SIZE(AirspaceLook::preset_colors));
 

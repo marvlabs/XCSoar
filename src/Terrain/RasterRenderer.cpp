@@ -34,8 +34,8 @@ Copyright_License {
 #include "Asset.hpp"
 #include "Event/Idle.hpp"
 
-#include <assert.h>
-#include <stdint.h>
+#include <cassert>
+#include <cstdint>
 
 /**
  * Interpolate between x and y with i/128, i.e. i/(1 << 7).

@@ -31,9 +31,10 @@
 #define STATIC_SOCKET_ADDRESS_HXX
 
 #include "SocketAddress.hxx"
+#include "Features.hxx"
 #include "Util/Compiler.h"
 
-#include <assert.h>
+#include <cassert>
 
 /**
  * An OO wrapper for struct sockaddr_storage.
@@ -53,25 +54,16 @@ public:
 
 	StaticSocketAddress &operator=(SocketAddress other) noexcept;
 
-	operator SocketAddress() const noexcept {
-		return SocketAddress(reinterpret_cast<const struct sockaddr *>(&address),
-				     size);
+	constexpr operator SocketAddress() const noexcept {
+		return SocketAddress(*this, size);
 	}
 
-	operator struct sockaddr *() noexcept {
-		return reinterpret_cast<struct sockaddr *>(&address);
+	constexpr operator struct sockaddr *() noexcept {
+		return (struct sockaddr *)(void *)&address;
 	}
 
-	operator const struct sockaddr *() const noexcept {
-		return reinterpret_cast<const struct sockaddr *>(&address);
-	}
-
-	struct sockaddr *GetAddress() noexcept {
-		return reinterpret_cast<struct sockaddr *>(&address);
-	}
-
-	const struct sockaddr *GetAddress() const noexcept {
-		return reinterpret_cast<const struct sockaddr *>(&address);
+	constexpr operator const struct sockaddr *() const noexcept {
+		return (const struct sockaddr *)(const void *)&address;
 	}
 
 	constexpr size_type GetCapacity() const noexcept {

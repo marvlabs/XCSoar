@@ -34,7 +34,7 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Util/TrivialArray.hxx"
 
-#include <assert.h>
+#include <cassert>
 
 static TrivialArray<TaskPointFactoryType, LegalPointSet::N> point_types;
 
@@ -57,12 +57,13 @@ public:
     return row_renderer.CalculateLayout(*look.list.font);
   }
 
-  void OnPaintItem(Canvas &canvas, const PixelRect rc, unsigned i) override;
+  void OnPaintItem(Canvas &canvas, const PixelRect rc,
+                   unsigned i) noexcept override;
 };
 
 void
 MutateTaskPointRenderer::OnPaintItem(Canvas &canvas, PixelRect rc,
-                                     unsigned DrawListIndex)
+                                     unsigned DrawListIndex) noexcept
 {
   assert(DrawListIndex < point_types.size());
 

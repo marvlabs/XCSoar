@@ -42,7 +42,7 @@ Copyright_License {
 #endif
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <string.h>
 
 class SDLRasterCanvas : public RasterCanvas<ActivePixelTraits> {
@@ -270,7 +270,7 @@ CopyTextRectangle(SDLRasterCanvas &canvas, int x, int y,
   typedef typename Operations::SourcePixelTraits SourcePixelTraits;
   canvas.CopyRectangle<decltype(o), SourcePixelTraits>
     (x, y, width, height,
-     typename SourcePixelTraits::const_pointer_type(s.data),
+     typename SourcePixelTraits::const_pointer(s.data),
      s.pitch, o);
 }
 

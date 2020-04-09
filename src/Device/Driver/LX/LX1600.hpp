@@ -31,8 +31,8 @@ Copyright_License {
 #include "Units/System.hpp"
 #include "Math/Util.hpp"
 
-#include <assert.h>
-#include <stdint.h>
+#include <cassert>
+#include <cstdint>
 
 /**
  * Code specific to LX Navigation varios (e.g. LX1600).

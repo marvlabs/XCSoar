@@ -41,8 +41,8 @@ The following is needed for all targets:
 
 \begin{itemize}
 \item GNU make
-\item GNU compiler collection (\texttt{gcc}), version 5 or later
-  or clang/LLVM 3.8 (with ``make CLANG=y'')
+\item GNU compiler collection (\texttt{gcc}), version 6 or later
+  or clang/LLVM 4.0 (with "make CLANG=y")
 \item GNU gettext
 \item \href{http://librsvg.sourceforge.net/)}{rsvg}
 \item \href{http://www.imagemagick.org/}{ImageMagick 6.4}
@@ -74,6 +74,7 @@ similar operating systems:
 \item \href{http://www.zlib.net/}{zlib}
 \item \href{http://curl.haxx.se/}{CURL}
 \item \href{http://www.lua.org/}{Lua}
+\item \href{https://www.freedesktop.org/wiki/Software/libinput/}{libinput} (not required when using Wayland or on the KOBO)
 \item \href{http://www.libsdl.org/}{SDL}
 \item \href{http://www.libsdl.org/projects/SDL\_ttf/}{SDL\_ttf}
 \item \href{http://www.libpng.org/}{libpng}
@@ -101,6 +102,7 @@ sudo apt-get install make g++ \
   librsvg2-bin xsltproc \
   imagemagick gettext \
   mesa-common-dev libgl1-mesa-dev libegl1-mesa-dev \
+  libinput-dev \
   fonts-dejavu
 \end{verbatim*}
 
@@ -130,7 +132,7 @@ For Android, you need:
 
 \begin{itemize}
 \item \href{http://developer.android.com/sdk/}{Android SDK level 22}
-\item \href{http://developer.android.com/sdk/ndk/}{Android NDK r20}
+\item \href{http://developer.android.com/sdk/ndk/}{Android NDK r21}
 \item \href{http://www.vorbis.com/}{Ogg Vorbis}
 \item {Java JDK 
 \begin{verbatim*}
@@ -154,7 +156,7 @@ tools/bin/sdkmanager \
 
 The \texttt{Makefile} assumes that the Android SDK is installed in
 \verb|~/opt/android-sdk-linux| and the NDK is installed in
-\verb|~/opt/android-ndk-r20|.  You can use the options
+\verb|~/opt/android-ndk-r21|.  You can use the options
 \verb|ANDROID_SDK| and \verb|ANDROID_NDK| to override these paths.
 
 Load/update the IOIO source code:

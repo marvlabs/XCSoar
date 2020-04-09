@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Max Kellermann <max.kellermann@gmail.com>
+ * Copyright (C) 2013-2014 Max Kellermann <max.kellermann@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,23 +27,24 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "AllocatedString.hxx"
-#include "StringAPI.hxx"
+#pragma once
 
-template<>
-AllocatedString<char>
-AllocatedString<char>::Duplicate(const_pointer_type src)
+#include <cstddef>
+
+/**
+ * Offset the given pointer by the specified number of bytes.
+ */
+constexpr void *
+OffsetPointer(void *p, ptrdiff_t offset)
 {
-	return Duplicate(src, StringLength(src));
+	return (char *)p + offset;
 }
 
-#ifdef _UNICODE
-
-template<>
-AllocatedString<wchar_t>
-AllocatedString<wchar_t>::Duplicate(const_pointer_type src)
+/**
+ * Offset the given pointer by the specified number of bytes.
+ */
+constexpr const void *
+OffsetPointer(const void *p, ptrdiff_t offset)
 {
-	return Duplicate(src, StringLength(src));
+	return (const char *)p + offset;
 }
-
-#endif

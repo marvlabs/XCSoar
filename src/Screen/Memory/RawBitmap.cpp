@@ -24,7 +24,7 @@ Copyright_License {
 #include "../RawBitmap.hpp"
 #include "Canvas.hpp"
 
-#include <assert.h>
+#include <cassert>
 
 /**
  * Returns minimum width that is greater then the given width and
@@ -49,7 +49,7 @@ RawBitmap::StretchTo(unsigned width, unsigned height,
                      unsigned dest_width, unsigned dest_height,
                      bool transparent_white) const
 {
-  ConstImageBuffer<ActivePixelTraits> src(ActivePixelTraits::const_pointer_type(GetBuffer()),
+  ConstImageBuffer<ActivePixelTraits> src(ActivePixelTraits::const_pointer(GetBuffer()),
                                           corrected_width * sizeof(*GetBuffer()),
                                           width, height);
 

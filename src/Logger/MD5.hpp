@@ -23,8 +23,8 @@
 #ifndef MD5_HPP
 #define MD5_HPP
 
-#include <stdint.h>
-#include <stddef.h>
+#include <cstdint>
+#include <cstddef>
 
 class MD5
 {

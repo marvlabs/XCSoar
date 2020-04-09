@@ -27,10 +27,10 @@
 #include "Task/AbstractTask.hpp"
 #include "SmartTaskAdvance.hpp"
 #include "Waypoint/Ptr.hpp"
-#include "Util/DereferenceIterator.hpp"
+#include "Util/DereferenceIterator.hxx"
 #include "Util/StaticString.hxx"
 
-#include <assert.h>
+#include <cassert>
 #include <vector>
 
 class SearchPoint;

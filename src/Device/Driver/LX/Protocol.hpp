@@ -27,8 +27,8 @@ Copyright_License {
 #include "Device/Port/Port.hpp"
 #include "Util/Compiler.h"
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 class OperationEnvironment;
 

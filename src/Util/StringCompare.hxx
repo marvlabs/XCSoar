@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2018 Max Kellermann <max.kellermann@gmail.com>
+ * Copyright 2013-2020 Max Kellermann <max.kellermann@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -38,11 +38,29 @@
 #include "WStringCompare.hxx"
 #endif
 
+#include <string_view>
+
 gcc_pure gcc_nonnull_all
 static inline bool
 StringIsEmpty(const char *string) noexcept
 {
 	return *string == 0;
+}
+
+gcc_pure
+static inline bool
+StringIsEqual(std::string_view a, std::string_view b) noexcept
+{
+	return a.size() == b.size() &&
+		StringIsEqual(a.data(), b.data(), b.size());
+}
+
+gcc_pure
+static inline bool
+StringIsEqualIgnoreCase(std::string_view a, std::string_view b) noexcept
+{
+	return a.size() == b.size() &&
+		StringIsEqualIgnoreCase(a.data(), b.data(), b.size());
 }
 
 gcc_pure gcc_nonnull_all
@@ -75,18 +93,18 @@ StringAfterPrefix(const char *haystack, StringView needle) noexcept
 }
 
 gcc_pure gcc_nonnull_all
-inline char *
-StringAfterPrefix(char *haystack, StringView needle) noexcept
-{
-	return const_cast<char *>(StringAfterPrefix((const char *)haystack,
-						    needle));
-}
-
-gcc_pure gcc_nonnull_all
 static inline bool
 StringStartsWithIgnoreCase(const char *haystack, StringView needle) noexcept
 {
 	return StringIsEqualIgnoreCase(haystack, needle.data, needle.size);
+}
+
+gcc_pure
+static inline bool
+StringStartsWithIgnoreCase(StringView haystack, StringView needle) noexcept
+{
+	return haystack.size >= needle.size &&
+		StringIsEqualIgnoreCase(haystack.data, needle.data, needle.size);
 }
 
 /**
@@ -101,6 +119,16 @@ StringAfterPrefixIgnoreCase(const char *haystack, StringView needle) noexcept
 {
 	return StringStartsWithIgnoreCase(haystack, needle)
 		? haystack + needle.size
+		: nullptr;
+}
+
+gcc_pure
+static inline StringView
+StringAfterPrefixIgnoreCase(StringView haystack,
+			    StringView needle) noexcept
+{
+	return StringStartsWithIgnoreCase(haystack, needle)
+		? haystack.substr(needle.size)
 		: nullptr;
 }
 

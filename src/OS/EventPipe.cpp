@@ -29,8 +29,8 @@
 
 #include "EventPipe.hpp"
 
-#include <assert.h>
-#include <stdint.h>
+#include <cassert>
+#include <cstdint>
 
 bool
 EventPipe::Create()

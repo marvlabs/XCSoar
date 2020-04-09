@@ -30,8 +30,8 @@ Copyright_License {
 #include "Widget/ManagedWidget.hpp"
 #include "UIUtil/GestureManager.hpp"
 
-#include <stdint.h>
-#include <assert.h>
+#include <cstdint>
+#include <cassert>
 
 #ifdef KOBO
 #define HAVE_SHOW_MENU_BUTTON
@@ -360,10 +360,10 @@ protected:
   virtual void OnPaint(Canvas &canvas) override;
 
   /* virtual methods from class TopWindow */
-  virtual bool OnClose() override;
+  virtual bool OnClose() noexcept override;
 
 #ifdef ANDROID
-  virtual void OnPause() override;
+  virtual void OnPause() noexcept override;
 #endif
 };
 

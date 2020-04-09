@@ -26,8 +26,8 @@ Copyright_License {
 
 #include "Util/Compiler.h"
 
-#include <stdint.h>
-#include <stddef.h>
+#include <cstdint>
+#include <cstddef>
 
 namespace IMI
 {

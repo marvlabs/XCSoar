@@ -29,8 +29,8 @@ Copyright_License {
 #include <chrono>
 #include <type_traits>
 
-#include <assert.h>
-#include <stdint.h>
+#include <cassert>
+#include <cstdint>
 
 /**
  * This keeps track when a value was last changed, to check if it was

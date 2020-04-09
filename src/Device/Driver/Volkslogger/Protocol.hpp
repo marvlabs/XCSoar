@@ -26,8 +26,8 @@ Copyright_License {
 
 #include <chrono>
 
-#include <stdint.h>
-#include <stddef.h>
+#include <cstdint>
+#include <cstddef>
 
 class Port;
 class OperationEnvironment;

@@ -28,9 +28,9 @@ Copyright_License {
 
 #include "Util/Compiler.h"
 
-#include <assert.h>
-#include <stddef.h>
-#include <stdint.h>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
 
 #include <list>
 #include <memory>

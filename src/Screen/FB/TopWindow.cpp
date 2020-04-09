@@ -38,7 +38,7 @@ Copyright_License {
 #include "Screen/Memory/Canvas.hpp"
 
 void
-TopWindow::CheckResize()
+TopWindow::CheckResize() noexcept
 {
   assert(screen != nullptr);
 
@@ -49,7 +49,7 @@ TopWindow::CheckResize()
 #endif
 
 void
-TopWindow::Invalidate()
+TopWindow::Invalidate() noexcept
 {
   invalidated = true;
 }
@@ -91,10 +91,13 @@ TopWindow::OnPaint(Canvas &canvas)
   /* draw the mouse cursor */
 
   const auto m = event_queue->GetMousePosition();
+  unsigned shortDistance = Layout::Scale(cursor_size * 4);
+  unsigned longDistance = Layout::Scale(cursor_size * 6);
+
   const BulkPixelPoint p[] = {
     { m.x, m.y },
-    { m.x + Layout::Scale(4), m.y + Layout::Scale(4) },
-    { m.x, m.y + Layout::Scale(6) },
+    { m.x + shortDistance, m.y + shortDistance },
+    { m.x, m.y + longDistance },
   };
 
   canvas.SelectBlackPen();
@@ -174,7 +177,7 @@ TopWindow::OnEvent(const Event &event)
 #endif
 
 int
-TopWindow::RunEventLoop()
+TopWindow::RunEventLoop() noexcept
 {
   Refresh();
 
@@ -187,7 +190,7 @@ TopWindow::RunEventLoop()
 }
 
 void
-TopWindow::PostQuit()
+TopWindow::PostQuit() noexcept
 {
   event_queue->Quit();
 }

@@ -29,8 +29,8 @@ Copyright_License {
 
 #include <curl/curl.h>
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 namespace Net {
   class Session;

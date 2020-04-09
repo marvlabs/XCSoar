@@ -341,3 +341,36 @@ ActionInterface::SetStandbyFrequency(const RadioFrequency & freq, const TCHAR * 
     device_blackboard->SetStandbyFrequency(freq, freq_name, env);
   }
 }
+
+void ActionInterface::OffsetActiveFrequency(double offset_khz, bool to_devices)
+{
+  RadioFrequency new_active_freq = SetComputerSettings().radio.active_frequency;
+  if(new_active_freq.IsDefined()) {
+    new_active_freq.OffsetKiloHertz(offset_khz);
+    if(new_active_freq.IsDefined()) {
+      ActionInterface::SetActiveFrequency(new_active_freq, nullptr, to_devices);
+    }
+  }
+}
+
+void ActionInterface::OffsetStandbyFrequency(double offset_khz, bool to_devices)
+{
+  RadioFrequency new_standby_freq = SetComputerSettings().radio.standby_frequency;
+  if(new_standby_freq.IsDefined()) {
+    new_standby_freq.OffsetKiloHertz(offset_khz);
+    if(new_standby_freq.IsDefined()) {
+      ActionInterface::SetStandbyFrequency(new_standby_freq, nullptr, to_devices);
+    }
+  }
+}
+
+void ActionInterface::ExchangeRadioFrequencies(bool to_devices)
+{
+  const auto radio_settings = SetComputerSettings().radio;
+
+  const auto old_active_freq = radio_settings.active_frequency;
+  const auto old_active_freq_name = radio_settings.active_name;
+
+  ActionInterface::SetActiveFrequency(radio_settings.standby_frequency, radio_settings.standby_name, to_devices);
+  ActionInterface::SetStandbyFrequency(old_active_freq, old_active_freq_name, to_devices);
+}

@@ -26,8 +26,8 @@ Copyright_License {
 
 #include "Compiler.h"
 
-#include <stdint.h>
-#include <stddef.h>
+#include <cstdint>
+#include <cstddef>
 
 extern const uint16_t crc16ccitt_table[256];
 
